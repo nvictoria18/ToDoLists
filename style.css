@@ -1,0 +1,143 @@
+html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* .container {
+  width: 360px;
+} */
+
+.container {
+  width: 500px;
+  margin: 0 auto;
+}
+
+.container__header {
+  text-align: center;
+}
+
+.container-input {
+  width: 100%;
+  display: flex;
+}
+
+.container-input__input {
+  width: 68%;
+  margin-right: auto;
+}
+
+.container-input__button {
+  width: 30%;
+  margin-left: auto;
+}
+
+.container-tasks {
+  width: 100%;
+}
+
+.container-tasks-task {
+  background-color: blue;
+  color:aliceblue;
+  margin: 10px auto;
+  width: 90%;
+  display: flex;
+  padding: 5px 10px;
+}
+
+.container-tasks-task__checkbox {
+  margin-right: 3%;
+}
+
+.container-tasks-task__text {
+  width: auto;
+}
+
+.container-tasks-task-buttons {
+  width: 30%;
+  display: flex;
+  margin-left: auto;
+}
+
+.container-tasks-task-buttons__delete {
+  margin: auto auto;
+}
+
+.container-all-tasks {
+  width: 500px;
+  padding: auto auto;
+  margin: 0 auto;
+  /* margin: auto auto; */
+  display: flex;
+  height: 60px;
+}
+#hr {
+  width: 500px;
+  margin: auto auto;
+}
+
+.container__show-all {
+  margin: auto auto; 
+
+}
+
+.container__show-active {
+  margin: auto auto;
+
+}
+
+.container__show-completed {
+  margin: auto auto;
+
+}
+.container__delete-all-completed-tasks{
+  margin: auto auto;
+
+}
+.container__completed-all-tasks {
+  margin-right: 3%;
+  /* margin-top: 4%; */
+}
+.pagination-container {
+  margin: auto auto;
+  display: flex;
+  width: 200px;
+}
+
+.pagination-container__page-button{
+  margin: auto auto;
+  width: 30px;
+  height: 30px;
+}
+
+.container__task-count {
+  margin-left: 10px;
+  font-size: 14px;
+  color: #333;
+}
+
+.container-edit {
+  display: none;
+  margin:auto auto;
+}
+.saveBtn {
+  margin: auto auto;
+}
+.cancelBtn {
+  margin: auto auto;
+}
+.hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+.checked-all-tasks {
+  margin: auto auto;
+  padding: 2%;
+  width: 100%;
+  height: 10px;
+}
