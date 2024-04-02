@@ -1,4 +1,5 @@
 const ENTER_KEY = 'Enter';
+const ESCAPE = 'Escape';
 
 let tasks = [];
 let currentPage = 1;
@@ -13,9 +14,6 @@ const countTask = document.getElementById('taskCounter');
 const countActiveTask = document.getElementById('taskCounterActive');
 const countComletedTask = document.getElementById('taskCounterCompleted');
 const completeAllTasksBtn = document.querySelector('.container__completed-all-tasks');
-//   const editingTasks = document.querySelector('.container-tasks-task__text');
-const deleteBtn = document.querySelector('.container-tasks-task-buttons__delete');
-const changeCheck = document.querySelectorAll('.container-tasks-task__checkbox');
 const showAll = document.querySelector('.container__show-all');
 const showActive = document.querySelector('.container__show-active');
 const showCompleted = document.querySelector('.container__show-completed');
@@ -82,8 +80,11 @@ function tasksRender(page) {
   document.querySelectorAll('.container-tasks-task__checkbox').forEach((event) => {
     event.addEventListener('change', onChangeCheckbox);
   });
-  document.querySelectorAll('.container-tasks-task-buttons__delete').forEach(event => {
+  document.querySelectorAll('.container-tasks-task-buttons__delete').forEach((event) => {
     event.addEventListener('click', deleteTasks);
+  });
+  document.querySelectorAll('.container-tasks-task__text').forEach((event) => {
+    event.addEventListener('dblclick', editTask);
   });
   renderCountTasks();
   tasksPagination(showTasksType);
@@ -96,25 +97,34 @@ function pushButton(event) {
   tasksRender(currentPage);
 }
 
-function addTask() {
-  const taskText = inputField.value;
-  if (taskText.trim() !== '') {
-    tasks.push({
-      tasksName: taskText,
-      tasksIsCompleted: false,
-      id: Math.floor(Math.random() * (100000 - 1) + 1),
-    });
-    tasksRender(currentPage);
-  }
-}
+function addTask() { 
+  const taskText = _.escape(inputField.value);
+  if (taskText.trim() !== '') { 
+    tasks.push({ 
+      tasksName: taskText, 
+      tasksIsCompleted: false, 
+      id: Math.floor(Math.random() * (100000 - 1) + 1), 
+    }); 
+    tasksRender(currentPage); 
+  } 
+} 
 
 function deleteTasks(event) {
   const taskId = event.target.id.replace('taskCheckbox', '');
-  tasks.map((task) => {
+  tasks = [...tasks].filter((task) => task.id !== Number(taskId));
+  tasksRender(currentPage);
+}
+
+function editTask(event) {
+  let taskText = document.querySelectorAll('.container-tasks-task__text');
+  console.log(taskText);
+  const taskId = event.target.id.replace('taskCheckbox', '');
+  console.log('edit');
+  tasks.forEach((task) => {
     if (Number(taskId) === task.id) {
-      task.splice(task, 1);
+      console.log(taskId + task.id);
     }
-  });
+  })
   tasksRender(currentPage);
 }
 
@@ -155,28 +165,13 @@ function showCompletedTasks() {
   tasksRender(currentPage);
 }
 
-// function editTask(){
-
-// }
-
 function addTaskByEnter(event) {
   if (event.key === ENTER_KEY) addTask();
 }
 
-// function changeCheck(event) {
-//   onChangeCheckbox();
-// }
-// function removeTask(event) {
-//   deleteTasks();
-// }
-
-// changeCheck.addEventListener('', changeCheck);
-
 addButton.addEventListener('click', addTask);
 inputField.addEventListener('keypress', addTaskByEnter); // X
 completeAllTasksBtn.addEventListener('click', completeAllTask);
-
-// deleteBtn.addEventListener('click', removeTask);
 
 showAll.addEventListener('click', showAllTasks);
 showActive.addEventListener('click', showActiveTasks);
