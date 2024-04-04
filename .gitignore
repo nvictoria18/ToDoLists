@@ -1,42 +1,4 @@
-archive/
-archive/* function tasksRenderOld(page) {
-  let i = 1;
-  tasksContainer.parentNode.removeChild(tasksContainer);
-
-  container.insertAdjacentHTML('beforeend', '<div class="container-tasks"></div>');
-  tasksContainer = document.querySelector('.container-tasks');
-  tasks.forEach((task) => {
-    const taskHtml = `
-      <div class="container-tasks-task" id="task${task.id}">
-        <input class="container-tasks-task__checkbox" id="taskCheckbox${task.id}" type="checkbox" ${task.tasksIsCompleted ? `checked=${task.tasksIsCompleted}` : ''}"/>
-        <p class="container-tasks-task__text" id="taskCheckbox${task.id}" type="checkbox" ${task.tasksIsCompleted ? `checked=${task.tasksIsCompleted}` : ''}>${task.tasksName}
-          <span class="task-edit" id="taskEdit${task.id}">EDITT!!</span>
-        </p>
-        <div class="container-tasks-task-buttons">
-            <button class="container-tasks-task-buttons__delete" type="button" id="taskCheckbox${task.id}" type="checkbox" ${task.tasksIsCompleted ? `checked=${task.tasksIsCompleted}` : ''}>X</button>
-        </div>
-      </div>
-    `;
-    if (showTasksType === 'active' && !task.tasksIsCompleted) {
-      tasksContainer.insertAdjacentHTML('beforeend', taskHtml);
-    }
-    if (showTasksType === 'completed' && task.tasksIsCompleted) {
-      tasksContainer.insertAdjacentHTML('beforeend', taskHtml);
-    }
-    if ((i > (page - 1) * 5 && i <= (page * 5)) && showTasksType === 'all') {
-      tasksContainer.insertAdjacentHTML('beforeend', taskHtml);
-    }
-    i += 1;
-  });
-  document.querySelectorAll('.container-tasks-task__checkbox').forEach((event) => {
-    event.addEventListener('change', onChangeCheckbox);
-  });
-  document.querySelectorAll('.container-tasks-task-buttons__delete').forEach((event) => {
-    event.addEventListener('click', deleteTasks);
-  });
-  document.querySelectorAll('.container-tasks-task__text').forEach((event) => {
-    event.addEventListener('dblclick', editTask);
-  });
-  renderCountTasks();
-  tasksPagination(showTasksType);
-}
+./node_moduls
+package.json
+package-lock.json
+eslintrc.json
