@@ -1,10 +1,7 @@
 const ENTER_KEY = 'Enter';
 const ESCAPE = 'Escape';
-<<<<<<< HEAD
-=======
 
 const { _ } = window;
->>>>>>> todo
 
 let tasks = [];
 let currentPage = 1;
@@ -101,7 +98,6 @@ function pushButton(event) {
   tasksRender(currentPage);
 }
 
-<<<<<<< HEAD
 function addTask() { 
   const taskText = _.escape(inputField.value);
   if (taskText.trim() !== '') { 
@@ -114,9 +110,6 @@ function addTask() {
   } 
 } 
 
-function deleteTasks(event) {
-  const taskId = event.target.id.replace('taskCheckbox', '');
-  tasks = [...tasks].filter((task) => task.id !== Number(taskId));
 function addTask() {
   const taskText = _.escape(inputField.value);
   if (taskText.trim() !== '') {
@@ -132,12 +125,10 @@ function addTask() {
 function deleteTasks(event) {
   const taskId = event.target.id.replace('taskCheckbox', '');
   tasks = tasks.filter((task) => task.id !== Number(taskId));
->>>>>>> todo
   tasksRender(currentPage);
 }
 
 function editTask(event) {
-<<<<<<< HEAD
   let taskText = document.querySelectorAll('.container-tasks-task__text');
   console.log(taskText);
   const taskId = event.target.id.replace('taskCheckbox', '');
@@ -145,7 +136,6 @@ function editTask(event) {
   tasks.forEach((task) => {
     if (Number(taskId) === task.id) {
       console.log(taskId + task.id);
-=======
   const taskId = event.target.id.replace('taskCheckbox', '');
   const containsTask = event.target.closest('.container-tasks-task');
   const text = containsTask.querySelector('.container-tasks-task__text');
@@ -165,7 +155,6 @@ function editTask(event) {
       text.style.display = 'none';
       text.focus();
       newText.value = task.tasksName;
->>>>>>> todo
     }
   })
   tasksRender(currentPage);
@@ -217,16 +206,6 @@ addButton.addEventListener('click', addTask);
 inputField.addEventListener('keypress', addTaskByEnter); // X
 completeAllTasksBtn.addEventListener('click', completeAllTask);
 
-<<<<<<< HEAD
-=======
-// tasksContainer.addEventListener('click', (event) => {
-//   event.addEventListener('click', deleteTasks);
-// });
-// tasksContainer.addEventListener('change', (event) => {
-//   event.addEventListener('change', onChangeCheckbox);
-// });
-
->>>>>>> todo
 showAll.addEventListener('click', showAllTasks);
 showActive.addEventListener('click', showActiveTasks);
 showCompleted.addEventListener('click', showCompletedTasks);
