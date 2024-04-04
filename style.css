@@ -75,10 +75,6 @@ html {
   display: flex;
   height: 60px;
 }
-#hr {
-  width: 500px;
-  margin: auto auto;
-}
 
 .container__show-all {
   margin: auto auto; 

@@ -117,7 +117,6 @@ function addTask() {
 function deleteTasks(event) {
   const taskId = event.target.id.replace('taskCheckbox', '');
   tasks = [...tasks].filter((task) => task.id !== Number(taskId));
-=======
 function addTask() {
   const taskText = _.escape(inputField.value);
   if (taskText.trim() !== '') {
