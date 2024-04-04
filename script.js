@@ -60,7 +60,7 @@ function tasksRender(page) {
     const taskHtml = `
       <div class="container-tasks-task" id="task${task.id}">
         <input class="container-tasks-task__checkbox" id="taskCheckbox${task.id}" type="checkbox" ${task.tasksIsCompleted ? `checked=${task.tasksIsCompleted}` : ''}"/>
-        <p class="container-tasks-task__text" id="taskCheckbox${task.id}" type="checkbox" ${task.tasksIsCompleted ? `checked=${task.tasksIsCompleted}` : ''}>${task.tasksName}</p>
+        <span class="container-tasks-task__text" id="taskCheckbox${task.id}" type="checkbox" ${task.tasksIsCompleted ? `checked=${task.tasksIsCompleted}` : ''}>${task.tasksName}</span>
         <div class="container-tasks-task-buttons">
             <button class="container-tasks-task-buttons__delete" type="button" id="taskCheckbox${task.id}" type="checkbox" ${task.tasksIsCompleted ? `checked=${task.tasksIsCompleted}` : ''}>X</button>
         </div>
@@ -134,7 +134,6 @@ function deleteAllCheckedTasks() {
 }
 
 function completeAllTask() {
-  completeAllTasksBtn.checked = true;
   tasks.forEach((task) => {
     const taskCopy = task;
     taskCopy.tasksIsCompleted = completeAllTasksBtn.checked;
