@@ -1,10 +1,3 @@
-const ENTER_KEY = 'Enter';
-const ESCAPE = 'Escape';
-
-let tasks = [];
-let currentPage = 1;
-let showTasksType = 'all'; // active, completed, all
-
 const addButton = document.querySelector('.container-input__button');
 const inputField = document.querySelector('.container-input__input');
 let tasksContainer = document.querySelector('.container-tasks');
@@ -18,6 +11,13 @@ const showAll = document.querySelector('.container__show-all');
 const showActive = document.querySelector('.container__show-active');
 const showCompleted = document.querySelector('.container__show-completed');
 const deleteAllCheckedTasksBtn = document.querySelector('.container__delete-all-completed-tasks');
+
+const ENTER_KEY = 'Enter';
+const ESCAPE = 'Escape';
+
+let tasks = [];
+let currentPage = 1;
+let showTasksType = 'all'; // active, completed, all
 
 function renderCountTasks() {
   countTask.innerHTML = tasks.length;
@@ -103,7 +103,7 @@ function addTask() {
     tasks.push({ 
       tasksName: taskText, 
       tasksIsCompleted: false, 
-      id: Math.floor(Math.random() * (100000 - 1) + 1), 
+      id: Date.now(), 
     }); 
     tasksRender(currentPage); 
   } 
