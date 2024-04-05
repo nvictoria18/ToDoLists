@@ -13,15 +13,16 @@ const showActive = document.querySelector('.container__show-active');
 const showCompleted = document.querySelector('.container__show-completed');
 const deleteAllCheckedTasksBtn = document.querySelector('.container__delete-all-completed-tasks');
 
+const PER_PAGE = 5;
 const ENTER_KEY = 'Enter';
-const ESCAPE = 'Escape';
+// const ESCAPE = 'Escape';
 
 let tasks = [];
 let currentPage = 1;
 let showTasksType = 'all';
 
 function renderCountTasks() {
-  countTask.innerHTML = tasks.length;
+  countTask.textContent = tasks.length;
   let activeCount = 0;
   let completedCount = 0;
   tasks.forEach((task) => {
@@ -31,8 +32,8 @@ function renderCountTasks() {
       completedCount += 1;
     }
   });
-  countActiveTask.innerHTML = activeCount;
-  countComletedTask.innerHTML = completedCount;
+  countActiveTask.textContent = activeCount;
+  countComletedTask.textContent = completedCount;
 }
 
 function tasksPagination() {
@@ -53,18 +54,17 @@ function tasksPagination() {
 
 function getTaskTemplate(task) {
   return `
-    <div class="container-tasks-task" id="task${task.id}">
-      <input class="container-tasks-task__checkbox" id="taskCheckbox${task.id}" type="checkbox" ${task.tasksIsCompleted ? 'checked' : ''}/>
-      <span class="container-tasks-task__text">${task.tasksName}</span>
-      <div class="container-tasks-task-buttons">
-          <button class="container-tasks-task-buttons__delete" type="button" id="deleteTask${task.id}">X</button>
-      </div>
+  <div class="container-tasks-task" id="task${task.id}">
+    <input class="container-tasks-task__checkbox" id="taskCheckbox${task.id}" type="checkbox" ${task.tasksIsCompleted ? `checked=${task.tasksIsCompleted}` : ''}"/>
+    <span contentEditable="true" class="container-tasks-task__text" id="taskCheckbox${task.id}" type="checkbox" ${task.tasksIsCompleted ? `checked=${task.tasksIsCompleted}` : ''}>${task.tasksName}</span>
+    <div class="container-tasks-task-buttons">
+        <button class="container-tasks-task-buttons__delete" type="button" id="taskCheckbox${task.id}" type="checkbox" ${task.tasksIsCompleted ? `checked=${task.tasksIsCompleted}` : ''}>X</button>
     </div>
+  </div>
   `;
 }
 
 function tasksRender(page) {
-  let i = 1;
   tasksContainer.parentNode.removeChild(tasksContainer);
 
   container.insertAdjacentHTML('beforeend', '<div class="container-tasks"></div>');
@@ -78,11 +78,10 @@ function tasksRender(page) {
     } return true;
   });
 
-  const tasksPerPage = 5;
-  const totalPages = Math.ceil(tasksToShow.length / tasksPerPage);
+  const totalPages = Math.ceil(tasksToShow.length / PER_PAGE);
 
-  const startIndex = (page - 1) * tasksPerPage;
-  const endIndex = startIndex + tasksPerPage;
+  const startIndex = (page - 1) * PER_PAGE;
+  const endIndex = startIndex + PER_PAGE;
 
   const paginatedTasks = tasksToShow.slice(startIndex, endIndex);
 
@@ -100,11 +99,10 @@ function tasksRender(page) {
   document.querySelectorAll('.container-tasks-task__text').forEach((event) => {
     event.addEventListener('dblclick', editTask);
   });
-
   renderCountTasks();
-  // Pass totalPages to the pagination function
   tasksPagination(showTasksType, totalPages);
 }
+
 tasksRender(currentPage);
 
 function pushButton(event) {
@@ -131,13 +129,13 @@ function deleteTasks(event) {
 }
 
 function editTask(event) {
-  const taskText = document.querySelectorAll('.container-tasks-task__text');
-  console.log(taskText);
+  const text = event.target.closest('.container-tasks-task__text').innerText;
   const taskId = event.target.id.replace('taskCheckbox', '');
-  console.log('edit');
+  // text.setAttribute('contenteditable', 'true');
   tasks.forEach((task) => {
+    const taskCopy = task;
     if (Number(taskId) === task.id) {
-      console.log(taskId + task.id);
+      taskCopy.tasksName = text;
     }
   });
   tasksRender(currentPage);
@@ -159,8 +157,9 @@ function completeAllTask() {
 function onChangeCheckbox(event) {
   const taskId = event.target.id.replace('taskCheckbox', '');
   tasks.forEach((task) => {
+    const taskCopy = task;
     if (Number(taskId) === task.id) {
-      task.tasksIsCompleted = !task.tasksIsCompleted;
+      taskCopy.tasksIsCompleted = !task.tasksIsCompleted;
     }
   });
   tasksRender(currentPage);
