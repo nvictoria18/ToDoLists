@@ -17,7 +17,7 @@ const ESCAPE = 'Escape';
 
 let tasks = [];
 let currentPage = 1;
-let showTasksType = 'all'; // active, completed, all
+let showTasksType = 'all';
 
 function renderCountTasks() {
   countTask.innerHTML = tasks.length;
@@ -50,7 +50,7 @@ function tasksPagination() {
   paginationContainer.innerHTML = newPageButtons;
 }
 
-function tasksRender(page) {
+function tasksRender(currentPage) {
   let i = 1;
   tasksContainer.parentNode.removeChild(tasksContainer);
 
@@ -72,7 +72,7 @@ function tasksRender(page) {
     if (showTasksType === 'completed' && task.tasksIsCompleted) {
       tasksContainer.insertAdjacentHTML('beforeend', taskHtml);
     }
-    if ((i > (page - 1) * 5 && i <= (page * 5)) && showTasksType === 'all') {
+    if ((i > (currentPage - 1) * 5 && i <= (currentPage * 5)) && showTasksType === 'all') {
       tasksContainer.insertAdjacentHTML('beforeend', taskHtml);
     }
     i += 1;
@@ -108,18 +108,6 @@ function addTask() {
     tasksRender(currentPage); 
   } 
 } 
-
-function addTask() {
-  const taskText = _.escape(inputField.value);
-  if (taskText.trim() !== '') {
-    tasks.push({
-      tasksName: taskText,
-      tasksIsCompleted: false,
-      id: Math.floor(Math.random() * (100000 - 1) + 1),
-    });
-    tasksRender(currentPage);
-  }
-}
 
 function deleteTasks(event) {
   const taskId = event.target.id.replace('taskCheckbox', '');
