@@ -3,7 +3,7 @@ const ESCAPE = 'Escape';
 
 let tasks = [];
 let currentPage = 1;
-let showTasksType = 'all'; // active, completed, all
+let showTasksType = 'all'; 
 
 const addButton = document.querySelector('.container-input__button');
 const inputField = document.querySelector('.container-input__input');
@@ -181,7 +181,7 @@ function addTaskByEnter(event) {
 }
 
 addButton.addEventListener('click', addTask);
-inputField.addEventListener('keypress', addTaskByEnter); // X
+inputField.addEventListener('keypress', addTaskByEnter); 
 completeAllTasksBtn.addEventListener('click', completeAllTask);
 
 showAll.addEventListener('click', showAllTasks);
@@ -189,4 +189,4 @@ showActive.addEventListener('click', showActiveTasks);
 showCompleted.addEventListener('click', showCompletedTasks);
 deleteAllCheckedTasksBtn.addEventListener('click', deleteAllCheckedTasks);
 
-paginationContainer.addEventListener('click', pushButton); // X
+paginationContainer.addEventListener('click', pushButton); 
