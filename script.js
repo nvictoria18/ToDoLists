@@ -63,25 +63,34 @@ function getTaskTemplate(task) {
   `;
 }
 
-function tasksRender(currentPage) {
+function tasksRender(page) {
   let i = 1;
   tasksContainer.parentNode.removeChild(tasksContainer);
 
   container.insertAdjacentHTML('beforeend', '<div class="container-tasks"></div>');
   tasksContainer = document.querySelector('.container-tasks');
-  tasks.forEach((task) => {
-    const taskHtml = getTaskTemplate(task);
-    if (showTasksType === 'active' && !task.tasksIsCompleted) {
-      tasksContainer.insertAdjacentHTML('beforeend', taskHtml);
-    }
-    if (showTasksType === 'completed' && task.tasksIsCompleted) {
-      tasksContainer.insertAdjacentHTML('beforeend', taskHtml);
-    }
-    if ((i > (currentPage - 1) * 5 && i <= (currentPage * 5)) && showTasksType === 'all') {
-      tasksContainer.insertAdjacentHTML('beforeend', taskHtml);
-    }
-    i += 1;
+
+  const tasksToShow = tasks.filter((task) => {
+    if (showTasksType === 'active') {
+      return !task.tasksIsCompleted;
+    } if (showTasksType === 'completed') {
+      return task.tasksIsCompleted;
+    } return true;
   });
+
+  const tasksPerPage = 5;
+  const totalPages = Math.ceil(tasksToShow.length / tasksPerPage);
+
+  const startIndex = (page - 1) * tasksPerPage;
+  const endIndex = startIndex + tasksPerPage;
+
+  const paginatedTasks = tasksToShow.slice(startIndex, endIndex);
+
+  paginatedTasks.forEach((task) => {
+    const taskHtml = getTaskTemplate(task);
+    tasksContainer.insertAdjacentHTML('beforeend', taskHtml);
+  });
+
   document.querySelectorAll('.container-tasks-task__checkbox').forEach((event) => {
     event.addEventListener('change', onChangeCheckbox);
   });
@@ -91,10 +100,11 @@ function tasksRender(currentPage) {
   document.querySelectorAll('.container-tasks-task__text').forEach((event) => {
     event.addEventListener('dblclick', editTask);
   });
-  renderCountTasks();
-  tasksPagination(showTasksType);
-}
 
+  renderCountTasks();
+  // Pass totalPages to the pagination function
+  tasksPagination(showTasksType, totalPages);
+}
 tasksRender(currentPage);
 
 function pushButton(event) {
@@ -102,17 +112,17 @@ function pushButton(event) {
   tasksRender(currentPage);
 }
 
-function addTask() { 
+function addTask() {
   const taskText = _.escape(inputField.value);
-  if (taskText.trim() !== '') { 
-    tasks.push({ 
-      tasksName: taskText, 
-      tasksIsCompleted: false, 
-      id: Date.now(), 
-    }); 
-    tasksRender(currentPage); 
-  } 
-} 
+  if (taskText.trim() !== '') {
+    tasks.push({
+      tasksName: taskText,
+      tasksIsCompleted: false,
+      id: Date.now(),
+    });
+    tasksRender(currentPage);
+  }
+}
 
 function deleteTasks(event) {
   const taskId = event.target.id.replace('taskCheckbox', '');
@@ -121,7 +131,7 @@ function deleteTasks(event) {
 }
 
 function editTask(event) {
-  let taskText = document.querySelectorAll('.container-tasks-task__text');
+  const taskText = document.querySelectorAll('.container-tasks-task__text');
   console.log(taskText);
   const taskId = event.target.id.replace('taskCheckbox', '');
   console.log('edit');
@@ -129,7 +139,7 @@ function editTask(event) {
     if (Number(taskId) === task.id) {
       console.log(taskId + task.id);
     }
-  })
+  });
   tasksRender(currentPage);
 }
 
@@ -157,8 +167,8 @@ function onChangeCheckbox(event) {
 }
 
 function showTasks(type) {
-  switch(type) {
-    case 'all': 
+  switch (type) {
+    case 'all':
       showTasksType = 'all';
       break;
     case 'active':
@@ -192,7 +202,7 @@ function addTaskByEnter(event) {
 }
 
 addButton.addEventListener('click', addTask);
-inputField.addEventListener('keypress', addTaskByEnter); 
+inputField.addEventListener('keypress', addTaskByEnter);
 completeAllTasksBtn.addEventListener('click', completeAllTask);
 
 showAll.addEventListener('click', handleAllTasks);
@@ -200,5 +210,5 @@ showActive.addEventListener('click', handleActiveTasks);
 showCompleted.addEventListener('click', handleCompletedTasks);
 deleteAllCheckedTasksBtn.addEventListener('click', deleteAllCheckedTasks);
 
-paginationContainer.addEventListener('click', pushButton); 
-// })
+paginationContainer.addEventListener('click', pushButton);
+// });
