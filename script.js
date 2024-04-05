@@ -1,10 +1,5 @@
 const ENTER_KEY = 'Enter';
 const ESCAPE = 'Escape';
-<<<<<<< HEAD
-=======
-
-const { _ } = window;
->>>>>>> todo
 
 let tasks = [];
 let currentPage = 1;
@@ -65,8 +60,7 @@ function tasksRender(page) {
     const taskHtml = `
       <div class="container-tasks-task" id="task${task.id}">
         <input class="container-tasks-task__checkbox" id="taskCheckbox${task.id}" type="checkbox" ${task.tasksIsCompleted ? `checked=${task.tasksIsCompleted}` : ''}"/>
-        <span class="container-tasks-task__text" id="taskCheckbox${task.id}" type="checkbox" ${task.tasksIsCompleted ? `checked=${task.tasksIsCompleted}` : ''}>${task.tasksName}</p>
-        <input type="text" class="task-edit" id="taskCheckbox${task.id}"></input>
+        <span class="container-tasks-task__text" id="taskCheckbox${task.id}" type="checkbox" ${task.tasksIsCompleted ? `checked=${task.tasksIsCompleted}` : ''}>${task.tasksName}</span>
         <div class="container-tasks-task-buttons">
             <button class="container-tasks-task-buttons__delete" type="button" id="taskCheckbox${task.id}" type="checkbox" ${task.tasksIsCompleted ? `checked=${task.tasksIsCompleted}` : ''}>X</button>
         </div>
@@ -96,6 +90,8 @@ function tasksRender(page) {
   tasksPagination(showTasksType);
 }
 
+tasksRender(currentPage);
+
 function pushButton(event) {
   currentPage = Number(event.target.dataset.page);
   tasksRender(currentPage);
@@ -113,9 +109,6 @@ function addTask() {
   } 
 } 
 
-function deleteTasks(event) {
-  const taskId = event.target.id.replace('taskCheckbox', '');
-  tasks = [...tasks].filter((task) => task.id !== Number(taskId));
 function addTask() {
   const taskText = _.escape(inputField.value);
   if (taskText.trim() !== '') {
@@ -142,27 +135,6 @@ function editTask(event) {
   tasks.forEach((task) => {
     if (Number(taskId) === task.id) {
       console.log(taskId + task.id);
-=======
-  const taskId = event.target.id.replace('taskCheckbox', '');
-  const containsTask = event.target.closest('.container-tasks-task');
-  const text = containsTask.querySelector('.container-tasks-task__text');
-  const newText = containsTask.querySelector('.task-edit');
-  const contains = text.contains(newText);
-  console.log(contains);
-  if (contains) {
-    text.setAttribute('contentEditale', 'true');
-    console.log(text.hasAttribute('contentEditale'));
-  }
-
-  if (containsTask.contains('newText')) {
-    text.focus();
-  }
-  tasks.forEach((task) => {
-    if (Number(taskId) === task.id) {
-      text.style.display = 'none';
-      text.focus();
-      newText.value = task.tasksName;
->>>>>>> todo
     }
   })
   tasksRender(currentPage);
@@ -174,7 +146,6 @@ function deleteAllCheckedTasks() {
 }
 
 function completeAllTask() {
-  completeAllTasksBtn.checked = true;
   tasks.forEach((task) => {
     const taskCopy = task;
     taskCopy.tasksIsCompleted = completeAllTasksBtn.checked;
@@ -186,8 +157,7 @@ function onChangeCheckbox(event) {
   const taskId = event.target.id.replace('taskCheckbox', '');
   tasks.forEach((task) => {
     if (Number(taskId) === task.id) {
-      const taskCopy = task;
-      taskCopy.tasksIsCompleted = !task.tasksIsCompleted;
+      task.tasksIsCompleted = !task.tasksIsCompleted;
     }
   });
   tasksRender(currentPage);
@@ -214,16 +184,6 @@ addButton.addEventListener('click', addTask);
 inputField.addEventListener('keypress', addTaskByEnter); // X
 completeAllTasksBtn.addEventListener('click', completeAllTask);
 
-<<<<<<< HEAD
-=======
-// tasksContainer.addEventListener('click', (event) => {
-//   event.addEventListener('click', deleteTasks);
-// });
-// tasksContainer.addEventListener('change', (event) => {
-//   event.addEventListener('change', onChangeCheckbox);
-// });
-
->>>>>>> todo
 showAll.addEventListener('click', showAllTasks);
 showActive.addEventListener('click', showActiveTasks);
 showCompleted.addEventListener('click', showCompletedTasks);
