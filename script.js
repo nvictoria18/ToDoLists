@@ -1,3 +1,4 @@
+// (() => {
 const addButton = document.querySelector('.container-input__button');
 const inputField = document.querySelector('.container-input__input');
 let tasksContainer = document.querySelector('.container-tasks');
@@ -50,6 +51,18 @@ function tasksPagination() {
   paginationContainer.innerHTML = newPageButtons;
 }
 
+function getTaskTemplate(task) {
+  return `
+    <div class="container-tasks-task" id="task${task.id}">
+      <input class="container-tasks-task__checkbox" id="taskCheckbox${task.id}" type="checkbox" ${task.tasksIsCompleted ? 'checked' : ''}/>
+      <span class="container-tasks-task__text">${task.tasksName}</span>
+      <div class="container-tasks-task-buttons">
+          <button class="container-tasks-task-buttons__delete" type="button" id="deleteTask${task.id}">X</button>
+      </div>
+    </div>
+  `;
+}
+
 function tasksRender(currentPage) {
   let i = 1;
   tasksContainer.parentNode.removeChild(tasksContainer);
@@ -57,15 +70,7 @@ function tasksRender(currentPage) {
   container.insertAdjacentHTML('beforeend', '<div class="container-tasks"></div>');
   tasksContainer = document.querySelector('.container-tasks');
   tasks.forEach((task) => {
-    const taskHtml = `
-      <div class="container-tasks-task" id="task${task.id}">
-        <input class="container-tasks-task__checkbox" id="taskCheckbox${task.id}" type="checkbox" ${task.tasksIsCompleted ? `checked=${task.tasksIsCompleted}` : ''}"/>
-        <span class="container-tasks-task__text" id="taskCheckbox${task.id}" type="checkbox" ${task.tasksIsCompleted ? `checked=${task.tasksIsCompleted}` : ''}>${task.tasksName}</span>
-        <div class="container-tasks-task-buttons">
-            <button class="container-tasks-task-buttons__delete" type="button" id="taskCheckbox${task.id}" type="checkbox" ${task.tasksIsCompleted ? `checked=${task.tasksIsCompleted}` : ''}>X</button>
-        </div>
-      </div>
-    `;
+    const taskHtml = getTaskTemplate(task);
     if (showTasksType === 'active' && !task.tasksIsCompleted) {
       tasksContainer.insertAdjacentHTML('beforeend', taskHtml);
     }
@@ -181,14 +186,6 @@ function handleCompletedTasks() {
   showTasks('completed');
   tasksRender(currentPage);
 }
-// function showActiveTasks() {
-//   showTasksType = 'active';
-//   tasksRender(currentPage);
-// }
-// function showCompletedTasks() {
-//   showTasksType = 'completed';
-//   tasksRender(currentPage);
-// }
 
 function addTaskByEnter(event) {
   if (event.key === ENTER_KEY) addTask();
@@ -204,3 +201,4 @@ showCompleted.addEventListener('click', handleCompletedTasks);
 deleteAllCheckedTasksBtn.addEventListener('click', deleteAllCheckedTasks);
 
 paginationContainer.addEventListener('click', pushButton); 
+// })
