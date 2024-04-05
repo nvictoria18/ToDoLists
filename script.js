@@ -101,7 +101,6 @@ function pushButton(event) {
   tasksRender(currentPage);
 }
 
-<<<<<<< HEAD
 function addTask() { 
   const taskText = _.escape(inputField.value);
   if (taskText.trim() !== '') { 
@@ -117,7 +116,6 @@ function addTask() {
 function deleteTasks(event) {
   const taskId = event.target.id.replace('taskCheckbox', '');
   tasks = [...tasks].filter((task) => task.id !== Number(taskId));
-=======
 function addTask() {
   const taskText = _.escape(inputField.value);
   if (taskText.trim() !== '') {
@@ -133,12 +131,10 @@ function addTask() {
 function deleteTasks(event) {
   const taskId = event.target.id.replace('taskCheckbox', '');
   tasks = tasks.filter((task) => task.id !== Number(taskId));
->>>>>>> todo
   tasksRender(currentPage);
 }
 
 function editTask(event) {
-<<<<<<< HEAD
   let taskText = document.querySelectorAll('.container-tasks-task__text');
   console.log(taskText);
   const taskId = event.target.id.replace('taskCheckbox', '');
