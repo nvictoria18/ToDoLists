@@ -151,30 +151,56 @@ function onChangeCheckbox(event) {
   tasksRender(currentPage);
 }
 
-function showAllTasks() {
-  showTasksType = 'all';
+function showTasks(type) {
+  switch(type) {
+    case 'all': 
+      showTasksType = 'all';
+      break;
+    case 'active':
+      showTasksType = 'active';
+      break;
+    case 'completed':
+      showTasksType = 'completed';
+      break;
+    default:
+      showTasksType = 'all';
+  }
+}
+
+function handleAllTasks() {
+  showTasks('all');
   tasksRender(currentPage);
 }
-function showActiveTasks() {
-  showTasksType = 'active';
+
+function handleActiveTasks() {
+  showTasks('active');
   tasksRender(currentPage);
 }
-function showCompletedTasks() {
-  showTasksType = 'completed';
+
+function handleCompletedTasks() {
+  showTasks('completed');
   tasksRender(currentPage);
 }
+// function showActiveTasks() {
+//   showTasksType = 'active';
+//   tasksRender(currentPage);
+// }
+// function showCompletedTasks() {
+//   showTasksType = 'completed';
+//   tasksRender(currentPage);
+// }
 
 function addTaskByEnter(event) {
   if (event.key === ENTER_KEY) addTask();
 }
 
 addButton.addEventListener('click', addTask);
-inputField.addEventListener('keypress', addTaskByEnter); // X
+inputField.addEventListener('keypress', addTaskByEnter); 
 completeAllTasksBtn.addEventListener('click', completeAllTask);
 
-showAll.addEventListener('click', showAllTasks);
-showActive.addEventListener('click', showActiveTasks);
-showCompleted.addEventListener('click', showCompletedTasks);
+showAll.addEventListener('click', handleAllTasks);
+showActive.addEventListener('click', handleActiveTasks);
+showCompleted.addEventListener('click', handleCompletedTasks);
 deleteAllCheckedTasksBtn.addEventListener('click', deleteAllCheckedTasks);
 
-paginationContainer.addEventListener('click', pushButton); // X
+paginationContainer.addEventListener('click', pushButton); 
