@@ -1,4 +1,4 @@
-// (() => {
+(() => {
 const addButton = document.querySelector('.container-input__button');
 const inputField = document.querySelector('.container-input__input');
 let tasksContainer = document.querySelector('.container-tasks');
@@ -15,7 +15,7 @@ const deleteAllCheckedTasksBtn = document.querySelector('.container__delete-all-
 
 const PER_PAGE = 5;
 const ENTER_KEY = 'Enter';
-// const ESCAPE = 'Escape';
+const ESCAPE = 'Escape';
 
 let tasks = [];
 let currentPage = 1;
@@ -128,6 +128,10 @@ function deleteTasks(event) {
   tasksRender(currentPage);
 }
 
+// function saveChanges(event) {
+  
+// }
+
 function editTask(event) {
   const text = event.target.closest('.container-tasks-task__text').innerText;
   const taskId = event.target.id.replace('taskCheckbox', '');
@@ -200,6 +204,14 @@ function addTaskByEnter(event) {
   if (event.key === ENTER_KEY) addTask();
 }
 
+function handleEdit(event) {
+  if (event.key === ENTER_KEY) {
+    saveChanges();
+  } if (event.key === ESCAPE) {
+    canselChanges();
+  }
+}
+
 addButton.addEventListener('click', addTask);
 inputField.addEventListener('keypress', addTaskByEnter);
 completeAllTasksBtn.addEventListener('click', completeAllTask);
@@ -210,4 +222,4 @@ showCompleted.addEventListener('click', handleCompletedTasks);
 deleteAllCheckedTasksBtn.addEventListener('click', deleteAllCheckedTasks);
 
 paginationContainer.addEventListener('click', pushButton);
-// });
+})();
