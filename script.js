@@ -136,28 +136,32 @@ function editTask(event) {
   textElement.setAttribute('contenteditable', 'true');
   textElement.focus();
 
-  textElement.addEventListener('keydown', function(e) {
-    if (e.key === ENTER_KEY) {
-      e.preventDefault();
+  function handleEnterKey(event) {
+    if (event.key === ENTER_KEY) {
+      event.preventDefault();
       textElement.blur();
     }
-  });
+  }
 
-  textElement.addEventListener('keydown', function(e) {
-    if (e.key === ESCAPE_KEY) {
+  function handleEscapeKey(event) {
+    if (event.key === ESCAPE_KEY) {
       textElement.innerText = originalText;
       textElement.blur();
     }
-  });
+  }
 
-  textElement.addEventListener('blur', function() {
-    tasks.forEach((task) => {
+  function handleBlur() {
+    tasks.forEach(function(task) {
       if (Number(taskId) === task.id) {
         task.tasksName = textElement.innerText;
       }
     });
     tasksRender(currentPage);
-  });
+  }
+
+  textElement.addEventListener('keydown', handleEnterKey);
+  textElement.addEventListener('keydown', handleEscapeKey);
+  textElement.addEventListener('blur', handleBlur);
 }
 
 function deleteAllCheckedTasks() {
@@ -217,14 +221,6 @@ function handleCompletedTasks() {
 
 function addTaskByEnter(event) {
   if (event.key === ENTER_KEY) addTask();
-}
-
-function handleEdit(event) {
-  if (event.key === ENTER_KEY) {
-    saveChanges();
-  } if (event.key === ESCAPE) {
-    canselChanges();
-  }
 }
 
 addButton.addEventListener('click', addTask);
