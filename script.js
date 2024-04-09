@@ -119,6 +119,7 @@ function addTask() {
       id: Date.now(),
     });
     tasksRender(currentPage);
+    inputField.value = '';
   }
 }
 
