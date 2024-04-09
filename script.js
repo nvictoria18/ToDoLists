@@ -15,7 +15,7 @@ const deleteAllCheckedTasksBtn = document.querySelector('.container__delete-all-
 
 const PER_PAGE = 5;
 const ENTER_KEY = 'Enter';
-const ESCAPE = 'Escape';
+const ESCAPE_KEY = 'Escape';
 
 let tasks = [];
 let currentPage = 1;
@@ -56,7 +56,7 @@ function getTaskTemplate(task) {
   return `
   <div class="container-tasks-task" id="task${task.id}">
     <input class="container-tasks-task__checkbox" id="taskCheckbox${task.id}" type="checkbox" ${task.tasksIsCompleted ? `checked=${task.tasksIsCompleted}` : ''}"/>
-    <span contentEditable="true" class="container-tasks-task__text" id="taskCheckbox${task.id}" type="checkbox" ${task.tasksIsCompleted ? `checked=${task.tasksIsCompleted}` : ''}>${task.tasksName}</span>
+    <span class="container-tasks-task__text" id="taskCheckbox${task.id}" type="checkbox" ${task.tasksIsCompleted ? `checked=${task.tasksIsCompleted}` : ''}>${task.tasksName}</span>
     <div class="container-tasks-task-buttons">
         <button class="container-tasks-task-buttons__delete" type="button" id="taskCheckbox${task.id}" type="checkbox" ${task.tasksIsCompleted ? `checked=${task.tasksIsCompleted}` : ''}>X</button>
     </div>
@@ -128,21 +128,36 @@ function deleteTasks(event) {
   tasksRender(currentPage);
 }
 
-// function saveChanges(event) {
-  
-// }
-
 function editTask(event) {
-  const text = event.target.closest('.container-tasks-task__text').innerText;
+  const textElement = event.target.closest('.container-tasks-task__text');
   const taskId = event.target.id.replace('taskCheckbox', '');
-  // text.setAttribute('contenteditable', 'true');
-  tasks.forEach((task) => {
-    const taskCopy = task;
-    if (Number(taskId) === task.id) {
-      taskCopy.tasksName = text;
+  const originalText = textElement.innerText;
+
+  textElement.setAttribute('contenteditable', 'true');
+  textElement.focus();
+
+  textElement.addEventListener('keydown', function(e) {
+    if (e.key === ENTER_KEY) {
+      e.preventDefault();
+      textElement.blur();
     }
   });
-  tasksRender(currentPage);
+
+  textElement.addEventListener('keydown', function(e) {
+    if (e.key === ESCAPE_KEY) {
+      textElement.innerText = originalText;
+      textElement.blur();
+    }
+  });
+
+  textElement.addEventListener('blur', function() {
+    tasks.forEach((task) => {
+      if (Number(taskId) === task.id) {
+        task.tasksName = textElement.innerText;
+      }
+    });
+    tasksRender(currentPage);
+  });
 }
 
 function deleteAllCheckedTasks() {
