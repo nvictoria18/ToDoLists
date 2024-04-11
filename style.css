@@ -54,12 +54,7 @@ html {
   margin: auto 10px;
   height: 100%;
   padding: 5px; 
-<<<<<<< HEAD
-  word-wrap: break-word;
-
-=======
   overflow-wrap: anywhere;
->>>>>>> 4b58ff161ac3b74a6a3498f6df651d6fd35f099b
 }
 
 .container-tasks-task__text:before {
