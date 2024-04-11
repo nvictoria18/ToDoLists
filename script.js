@@ -37,15 +37,16 @@ function renderCountTasks() {
 }
 
 function tasksPagination() {
-  let pagesCount = Math.trunc(tasks.length / 5);
-  if (pagesCount * 5 !== tasks.length || pagesCount === 0) {
+  let pagesCount = Math.trunc(tasks.length / PER_PAGE);
+  if (pagesCount * PER_PAGE !== tasks.length || pagesCount === 0) {
     pagesCount += 1;
   }
 
   let newPageButtons = '';
   for (let i = 0; i < pagesCount; i += 1) {
+    const isActive = currentPage === i + 1 ? 'active' : '';
     newPageButtons += `
-      <button class="pagination-container__page-button" data-page=${i + 1}>${i + 1}</button>
+      <button class="pagination-container__page-button ${isActive}" data-page=${i + 1}>${i + 1}</button>
     `;
   }
 
@@ -133,9 +134,9 @@ function editTask(event) {
   const textElement = event.target.closest('.container-tasks-task__text');
   const taskId = event.target.id.replace('taskCheckbox', '');
   const originalText = textElement.innerText;
-
-  textElement.setAttribute('contenteditable', 'true');
-  textElement.focus();
+  console.log(textElement.innerText);
+    textElement.setAttribute('contenteditable', 'true');
+    textElement.focus();
 
   function handleEnterKey(event) {
     if (event.key === ENTER_KEY) {
@@ -152,9 +153,10 @@ function editTask(event) {
   }
 
   function handleBlur() {
-    tasks.forEach(function(task) {
+    tasks.forEach((task) => {
       if (Number(taskId) === task.id) {
-        task.tasksName = textElement.innerText;
+        const trimmedText = textElement.innerText.replace(/\s+/g, ' ').trim();
+        trimmedText !== '' ? task.tasksName = trimmedText : task.tasksName;
       }
     });
     tasksRender(currentPage);
