@@ -40,6 +40,7 @@ html {
   display: flex;
   padding: 5px 10px;
   cursor: pointer;
+  word-wrap: break-word;
 }
 
 .container-tasks-task__text[contenteditable="true"]:hover {
@@ -53,6 +54,8 @@ html {
   margin: auto 10px;
   height: 100%;
   padding: 5px; 
+  word-wrap: break-word;
+
 }
 
 .container-tasks-task__text:before {
@@ -63,7 +66,6 @@ html {
   left: -5px;
   right: -5px;
   bottom: -5px;
-  background: rgba(255, 0, 0, 0.06);
 }
 
 .container-tasks-task__checkbox {
@@ -88,7 +90,6 @@ html {
   width: 500px;
   padding: auto auto;
   margin: 0 auto;
-  /* margin: auto auto; */
   display: flex;
   height: 60px;
 }
