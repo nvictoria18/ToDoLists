@@ -45,7 +45,7 @@ function tasksPagination() {
   let newPageButtons = '';
   for (let i = 0; i < pagesCount; i += 1) {
     const isActive = currentPage === i + 1 ? 'active' : '';
-    newPageButtons += `
+    newPageButtons += ` 
       <button class="pagination-container__page-button ${isActive}" data-page=${i + 1}>${i + 1}</button>
     `;
   }
@@ -119,6 +119,9 @@ function addTask() {
       tasksIsCompleted: false,
       id: Date.now(),
     });
+    let totalPages = Math.ceil(tasks.length / PER_PAGE);
+    currentPage = totalPages;
+    showTasksType = 'all';
     tasksRender(currentPage);
     inputField.value = '';
   }
@@ -134,7 +137,6 @@ function editTask(event) {
   const textElement = event.target.closest('.container-tasks-task__text');
   const taskId = event.target.id.replace('taskCheckbox', '');
   const originalText = textElement.innerText;
-  console.log(textElement.innerText);
     textElement.setAttribute('contenteditable', 'true');
     textElement.focus();
 

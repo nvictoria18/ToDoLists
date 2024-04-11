@@ -53,17 +53,16 @@ html {
   margin: auto 10px;
   height: 100%;
   padding: 5px; 
+  overflow-wrap: anywhere;
 }
 
 .container-tasks-task__text:before {
   content: "";
-  position: absolute;
   display: block;
   top: -5px;
   left: -5px;
   right: -5px;
   bottom: -5px;
-  background: rgba(255, 0, 0, 0.06);
 }
 
 .container-tasks-task__checkbox {
@@ -91,10 +90,6 @@ html {
   /* margin: auto auto; */
   display: flex;
   height: 60px;
-}
-#hr {
-  width: 500px;
-  margin: auto auto;
 }
 
 .container__show-all {
