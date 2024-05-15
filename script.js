@@ -157,7 +157,7 @@ function editTask(event) {
   function handleBlur() {
     tasks.forEach((task) => {
       if (Number(taskId) === task.id) {
-        const trimmedText = textElement.innerText.replace(/\s+/g, ' ').trim();
+        const trimmedText = _.escape(textElement.innerText.replace(/\s+/g, ' ').trim());
         trimmedText !== '' ? task.tasksName = trimmedText : task.tasksName;
       }
     });
