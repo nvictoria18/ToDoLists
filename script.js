@@ -37,6 +37,15 @@ function renderCountTasks() {
   countComletedTask.textContent = completedCount;
 }
 
+async function getTasksFromBD() {
+  const res = await fetch(URL);
+  const tasks = await res.json();
+
+  console.log(tasks);
+  tasks.forEach(task => getTaskTemplate(task));
+}
+
+
 function tasksPagination() {
   let pagesCount = Math.trunc(tasks.length / PER_PAGE);
   if (pagesCount * PER_PAGE !== tasks.length || pagesCount === 0) {
@@ -227,13 +236,6 @@ function handleCompletedTasks() {
 
 function addTaskByEnter(event) {
   if (event.key === ENTER_KEY) addTask();
-}
-
-async function getTasksFromBD() {
-  const res = await fetch(URL);
-  const tasks = await res.json();
-
-  console.log(tasks);
 }
 
 window.addEventListener('DOMContentLoaded', getTasksFromBD);
