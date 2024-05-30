@@ -16,6 +16,7 @@ const deleteAllCheckedTasksBtn = document.querySelector('.container__delete-all-
 const PER_PAGE = 5;
 const ENTER_KEY = 'Enter';
 const ESCAPE_KEY = 'Escape';
+const URL = 'http://localhost:7000/tasks/';
 
 let tasks = [];
 let currentPage = 1;
@@ -227,6 +228,15 @@ function handleCompletedTasks() {
 function addTaskByEnter(event) {
   if (event.key === ENTER_KEY) addTask();
 }
+
+async function getTasksFromBD() {
+  const res = await fetch(URL);
+  const tasks = await res.json();
+
+  console.log(tasks);
+}
+
+window.addEventListener('DOMContentLoaded', getTasksFromBD);
 
 addButton.addEventListener('click', addTask);
 inputField.addEventListener('keypress', addTaskByEnter);
